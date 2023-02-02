@@ -7,7 +7,7 @@ Api for RS-Nonograms
 ## Usage
 
 - **Nonograms**
-    - [Get Nonograms](https://github.com/neemkashu/rs-clone-back-end#get-nonograms)
+    - [Get Nonograms](#get-nonograms)
 
 **Get Nonograms**
 ----
@@ -46,8 +46,17 @@ Returns json data about nonograms.
     ```json
       [
         {
-          "mapping": {
-            "1": "black",
+          "id": "123456789abc",
+          "height": 11,
+          "width": 9,
+          "title": {
+            "en": "Martini",
+            "ru": "Мартини",
+            "de": "Martini"
+          },
+          "state": "initial",
+          "colorMapping": {
+            "1": "#000000",
             "2": "#c91414"
           },
           "goal": [
@@ -63,6 +72,20 @@ Returns json data about nonograms.
             [0,0,0,0,1,0,0,0,0],
             [0,0,1,1,1,1,1,0,0]
           ],
+          "currentUserDesicion": [
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null],
+            [null,null,null,null,null,null,null,null,null]
+          ],
+          "currentTime": 0,
           "rows": [
             [ {   "hint": 9, "color": 1  } ],
             [
@@ -135,6 +158,8 @@ Returns json data about nonograms.
         }
       ]
     ```
+    If the user is not logged in, the following properties are null: ```currentUserDesicion, currentTime, state```
+    
     **Headers:**
 
       None
