@@ -8,6 +8,8 @@ Api for RS-Nonograms
 
 - **Nonogram**
     - [Get Nonogram](#get-nonogram)
+- **Users**
+    - [Get User's game](#get-users-game)
 
 **Get Nonogram**
 ----
@@ -159,3 +161,154 @@ Returns json data about nonogram.
     None
 
 </details>
+
+**Get User's game**
+----
+Returns json data about user's saved game.
+
+<details>
+
+* **URL**
+
+    /users-games
+
+* **Method:**
+
+    `GET`
+
+* **Headers:**
+
+    `'token': 'string'`
+
+*  **URL Params**
+ 
+    None
+
+* **Query Params**
+
+    None
+
+* **Data Params**
+
+    ```
+        {
+            id: string
+        }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+      {
+        "data": {
+          "currentGame": {
+            "state": "started",
+            "currentUserSolution": [
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [0,1,2,2,2,2,2,1,0],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null]
+            ],
+            "currentTime": 200,
+            "currentUserRows": [
+                [ {   "isCrossedOut": false  } ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": true  },
+                    {   "isCrossedOut": true  },
+                    {   "isCrossedOut": true  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+            ],
+            "currentUserColumns": [
+                [ {   "isCrossedOut": false  } ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [ {   "isCrossedOut": false  } ],
+            ]
+          }
+        }
+      }
+    ```
+        
+    **Headers:**
+
+      None
+
+ 
+* **Error Response:**
+
+    * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```{}```
+
+* **Notes:**
+
+    ```'state': 'started' | 'finished' | 'initial'```
+
+    ```currentTime``` - time in ms
+
+</details>
+
