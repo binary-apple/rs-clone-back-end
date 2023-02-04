@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "ES6",
+        "noImplicitAny": true,
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "strict": true,
+        "skipLibCheck": true,
+        "allowJs": true,
+        "outDir": "./built",
+        "types": [
+            "node"
+        ],
+    },
+    "include": [
+        "src/**/*",
+        "nonogram-db/**/*"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+}
