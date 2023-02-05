@@ -6,18 +6,20 @@ Api for RS-Nonograms
 
 ## Usage
 
-- **Nonograms**
-    - [Get Nonograms](#get-nonograms)
+- **Nonogram**
+    - [Get Nonogram](#get-nonogram)
+- **Users**
+    - [Get User's game](#get-users-game)
 
-**Get Nonograms**
+**Get Nonogram**
 ----
-Returns json data about nonograms.
+Returns json data about nonogram.
 
 <details>
 
 * **URL**
 
-    /nonograms
+    /nonograms/:id
 
 * **Method:**
 
@@ -29,7 +31,9 @@ Returns json data about nonograms.
 
 *  **URL Params**
 
-    None
+    **Required:**
+ 
+    `id=[string]`
 
 * **Query Params**
 
@@ -44,191 +48,251 @@ Returns json data about nonograms.
   * **Code:** 200 OK <br />
     **Content:** 
     ```json
-      [
-        {
-          "id": "123456789abc",
-          "height": 11,
-          "width": 9,
-          "title": {
-            "en": "Martini",
-            "ru": "Мартини",
-            "de": "Martini"
-          },
-          "state": "started",
-          "colorMapping": {
-            "1": "#000000",
-            "2": "#c91414"
-          },
-          "goal": [
-            [1,1,1,1,1,1,1,1,1],
-            [1,0,0,0,0,0,0,0,1],
-            [0,1,2,2,2,2,2,1,0],
-            [0,0,1,2,2,2,1,0,0],
-            [0,0,0,1,2,1,0,0,0],
-            [0,0,0,0,1,0,0,0,0],
-            [0,0,0,0,1,0,0,0,0],
-            [0,0,0,0,1,0,0,0,0],
-            [0,0,0,0,1,0,0,0,0],
-            [0,0,0,0,1,0,0,0,0],
-            [0,0,1,1,1,1,1,0,0]
-          ],
-          "currentUserSolution": [
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [0,1,2,2,2,2,2,1,0],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null],
-            [null,null,null,null,null,null,null,null,null]
-          ],
-          "currentTime": 200,
-          "rows": [
-            [ {   "hint": 9, "color": 1  } ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
+      {
+        "data": {
+          "nonogram": {
+            "id": "123456789abc",
+            "height": 11,
+            "width": 9,
+            "title": {
+                "en": "Martini",
+                "ru": "Мартини",
+                "de": "Martini"
+            },
+            "colorMapping": {
+                "1": "#000000",
+                "2": "#c91414"
+            },
+            "goal": [
+                [1,1,1,1,1,1,1,1,1],
+                [1,0,0,0,0,0,0,0,1],
+                [0,1,2,2,2,2,2,1,0],
+                [0,0,1,2,2,2,1,0,0],
+                [0,0,0,1,2,1,0,0,0],
+                [0,0,0,0,1,0,0,0,0],
+                [0,0,0,0,1,0,0,0,0],
+                [0,0,0,0,1,0,0,0,0],
+                [0,0,0,0,1,0,0,0,0],
+                [0,0,0,0,1,0,0,0,0],
+                [0,0,1,1,1,1,1,0,0]
             ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 5, "color": 2  },
-                {   "hint": 1, "color": 1  },
+            "rows": [
+                [ {   "hint": 9, "color": 1  } ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 5, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 3, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [ {   "hint": 1, "color": 1  } ],
+                [ {   "hint": 1, "color": 1  } ],
+                [ {   "hint": 1, "color": 1  } ],
+                [ {   "hint": 1, "color": 1  } ],
+                [ {   "hint": 1, "color": 1  } ],
+                [ {   "hint": 5, "color": 1  } ],
             ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 3, "color": 2  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 2  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [ {   "hint": 1, "color": 1  } ],
-            [ {   "hint": 1, "color": 1  } ],
-            [ {   "hint": 1, "color": 1  } ],
-            [ {   "hint": 1, "color": 1  } ],
-            [ {   "hint": 1, "color": 1  } ],
-            [ {   "hint": 5, "color": 1  } ],
-          ],
-          "columns": [
-            [ {   "hint": 2, "color": 1  } ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 2  },
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 2, "color": 2  },
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 2  },
-                {   "hint": 6, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 2, "color": 2  },
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 2  },
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [
-                {   "hint": 1, "color": 1  },
-                {   "hint": 1, "color": 1  },
-            ],
-            [ {   "hint": 2, "color": 1  } ],
-          ],
-          "currentUserRows": [
-            [ {   "hint": 9, "color": 1, "isCroccedOut": false  } ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": true  },
-                {   "hint": 5, "color": 2, "isCroccedOut": true  },
-                {   "hint": 1, "color": 1, "isCroccedOut": true  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 3, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [ {   "hint": 1, "color": 1, "isCroccedOut": false  } ],
-            [ {   "hint": 1, "color": 1, "isCroccedOut": false  } ],
-            [ {   "hint": 1, "color": 1, "isCroccedOut": false  } ],
-            [ {   "hint": 1, "color": 1, "isCroccedOut": false  } ],
-            [ {   "hint": 1, "color": 1, "isCroccedOut": false  } ],
-            [ {   "hint": 5, "color": 1, "isCroccedOut": false  } ],
-          ],
-          "currentUserColumns": [
-            [ {   "hint": 2, "color": 1, "isCroccedOut": false  } ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 2, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 2, "isCroccedOut": false  },
-                {   "hint": 6, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 2, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 2, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-                {   "hint": 1, "color": 1, "isCroccedOut": false  },
-            ],
-            [ {   "hint": 2, "color": 1, "isCroccedOut": false  } ],
-          ]
+            "columns": [
+                [ {   "hint": 2, "color": 1  } ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 2, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 2  },
+                    {   "hint": 6, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 2, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 2  },
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [
+                    {   "hint": 1, "color": 1  },
+                    {   "hint": 1, "color": 1  },
+                ],
+                [ {   "hint": 2, "color": 1  } ],
+            ]
+          }
         }
-      ]
+      }
     ```
-    If the user is not logged in, the following properties are ```null```: ```currentUserDesicion, currentTime, state, currentUserRows, currentUserColumns```
-    
+ 
+* **Error Response:**
+
+    * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```{}```
+
+* **Notes:**
+
+    None
+
+</details>
+
+**Get User's game**
+----
+Returns json data about user's saved game.
+
+<details>
+
+* **URL**
+
+    /users-games
+
+* **Method:**
+
+    `GET`
+
+* **Headers:**
+
+    `'token': 'string'`
+
+*  **URL Params**
+ 
+    None
+
+* **Query Params**
+
+    None
+
+* **Data Params**
+
+    ```
+        {
+            id: string
+        }
+    ```
+
+* **Success Response:**
+
+  * **Code:** 200 OK <br />
+    **Content:** 
+    ```json
+      {
+        "data": {
+          "currentGame": {
+            "state": "started",
+            "currentUserSolution": [
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [0,1,2,2,2,2,2,1,0],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null],
+                [null,null,null,null,null,null,null,null,null]
+            ],
+            "currentTime": 200,
+            "currentUserRows": [
+                [ {   "isCrossedOut": false  } ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": true  },
+                    {   "isCrossedOut": true  },
+                    {   "isCrossedOut": true  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+                [ {   "isCrossedOut": false  } ],
+            ],
+            "currentUserColumns": [
+                [ {   "isCrossedOut": false  } ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [
+                    {   "isCrossedOut": false  },
+                    {   "isCrossedOut": false  },
+                ],
+                [ {   "isCrossedOut": false  } ],
+            ]
+          }
+        }
+      }
+    ```
+        
     **Headers:**
 
       None
@@ -236,11 +300,15 @@ Returns json data about nonograms.
  
 * **Error Response:**
 
-    None
+    * **Code:** 404 NOT FOUND <br />
+    **Content:** 
+    ```{}```
 
 * **Notes:**
 
-    None
+    ```'state': 'started' | 'finished' | 'initial'```
+
+    ```currentTime``` - time in ms
 
 </details>
 
