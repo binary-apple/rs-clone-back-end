@@ -11,7 +11,7 @@ export const getNonogram = async (req: Request, res: Response) => {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      res.send(parseNonogram(docSnap.data() as DbNonogram));
+      res.send({id: id, nonogram: parseNonogram(docSnap.data() as DbNonogram)});
     } else {
       throw new Error('NOT FOUND');
     }
