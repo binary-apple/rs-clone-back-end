@@ -6,7 +6,8 @@ import { Nonogram, DbNonogram, parseNonogram, stringifyNonogram } from '../types
 
 export const getNonogram = async (req: Request, res: Response) => {
   try {
-    const docRef = doc(db, 'nonograms', req.body.id);
+    const id = req.params.id;
+    const docRef = doc(db, 'nonograms', id);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
