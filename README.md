@@ -205,9 +205,8 @@ Returns json data about nonogram.
     **Content:** 
     ```json
       {
-        "data": {
+          "id": "123456789abc",
           "nonogram": {
-            "id": "123456789abc",
             "height": 11,
             "width": 9,
             "title": {
@@ -303,7 +302,6 @@ Returns json data about nonogram.
             ]
           }
         }
-      }
     ```
  
 * **Error Response:**
