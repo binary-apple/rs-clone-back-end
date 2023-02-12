@@ -4,11 +4,7 @@ Api for RS-Nonograms
 ## Setup and Running
 
 - Use `node 18`.
-- Clone this repo: `$ git clone https://github.com/neemkashu/rs-clone-back-end.git`.
-- Go to downloaded folder: `$ cd rs-clone-back-end`.
-- Install dependencies: `$ npm install`.
-- Start server: `$ npm start`.
-- Now you can send requests to the address: `http://localhost:3000/nonograms`.
+- You can send requests to the address: `https://rs-clone-backend-1hqs.onrender.com`.
 
 ## Usage
 
