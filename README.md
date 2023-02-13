@@ -145,7 +145,8 @@ Returns json data about all nonograms.
                     {   "hint": 1, "color": 1  },
                 ],
                 [ {   "hint": 2, "color": 1  } ],
-            ]
+            ],
+            "difficulty" : 1
           }
         }
       ]
@@ -295,7 +296,8 @@ Returns json data about nonogram.
                     {   "hint": 1, "color": 1  },
                 ],
                 [ {   "hint": 2, "color": 1  } ],
-            ]
+            ],
+            "difficulty" : 1
           }
         }
     ```

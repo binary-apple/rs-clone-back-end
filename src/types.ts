@@ -14,7 +14,8 @@ export interface Nonogram {
   colorMapping: { [key: number]: string },
   goal: Array<Array<number>>,
   rows: Array<Array<NonogramHint>>,
-  columns: Array<Array<NonogramHint>>
+  columns: Array<Array<NonogramHint>>,
+  difficulty: number
 }
 
 export interface DbNonogram extends Omit<Nonogram, 'goal' | 'rows' | 'columns'> {
@@ -33,6 +34,7 @@ export const stringifyNonogram: (nonogram: Nonogram) => DbNonogram =
     goal: JSON.stringify(nonogram.goal),
     rows: JSON.stringify(nonogram.rows),
     columns: JSON.stringify(nonogram.columns),
+    difficulty: nonogram.difficulty
   };
 };
 
@@ -46,6 +48,7 @@ export const parseNonogram: (dbNonogram: DbNonogram) => Nonogram =
     goal: JSON.parse(dbNonogram.goal),
     rows: JSON.parse(dbNonogram.rows),
     columns: JSON.parse(dbNonogram.columns),
+    difficulty: dbNonogram.difficulty
   };
 };
 
