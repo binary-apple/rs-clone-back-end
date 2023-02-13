@@ -17,11 +17,14 @@ async function addDifficulty() {
             if (curSize < minSize) minSize = curSize;
         })
 
+        const maxSizeSqrt = Math.sqrt(maxSize);
+        const minSizeSqrt = Math.sqrt(minSize);
+
         querySnapshot.forEach((document) => {
             const nonogram = document.data() as DbNonogram
-            const curSize = nonogram.height * nonogram.width;
+            const curSizeSqrt = Math.sqrt(nonogram.height * nonogram.width);
 
-            const difficulty = Math.min(Math.round((curSize - minSize) / (maxSize - minSize) * 5) + 1, 5);
+            const difficulty = Math.min(Math.round((curSizeSqrt - minSizeSqrt) / (maxSizeSqrt - minSizeSqrt) * 5) + 1, 5);
 
             setDoc(document.ref, { difficulty: difficulty }, { merge: true });
         })
