@@ -20,6 +20,22 @@ export const getNonogram = async (req: Request, res: Response) => {
   }
 };
 
+export const getRandomNonogram = async (req: Request, res: Response) => {
+  try {
+    const q = query(collection(db, 'nonograms'));
+    const querySnapshot = await getDocs(q);
+        
+    const response: Array<{ id: string, nonogram: Nonogram }> = [];
+    querySnapshot.forEach((document) => {response.push({ id: document.id, nonogram: parseNonogram(document.data() as DbNonogram) });});
+
+    const docId = Math.floor(Math.random() * response.length);
+
+    res.send({id: response[docId].id, nonogram: response[docId].nonogram});
+  } catch (err) {
+    if (err instanceof Error) res.status(404).send(err.message);
+  }
+};
+
 export const getAllNonograms = async (req: Request, res: Response) => {
   try {
     const q = query(collection(db, 'nonograms'));
