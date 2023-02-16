@@ -3,8 +3,8 @@ Api for RS-Nonograms
 
 ## Setup and Running
 
-- Use `node 18`.
 - You can send requests to the address: `https://rs-clone-backend-1hqs.onrender.com`.
+- The first request can take a long time
 
 ## Usage
 
@@ -173,6 +173,10 @@ Returns json data about nonogram.
 * **URL**
 
     /nonograms/:id
+    
+    /nonograms/random
+    
+    Using random will return a random game
 
 * **Method:**
 
