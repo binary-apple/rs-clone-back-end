@@ -31,6 +31,7 @@ export const getUserGame = async (req: Request, res: Response) => {
     else res.send({data: {
         bestTime: response[0].bestTime,
         currentGame: {
+            id: response[0].nonogramId,
             state: response[0].state,
             currentUserSolution: response[0].currentUserSolution,
             currentTime: response[0].currentTime,
@@ -52,10 +53,11 @@ export const getAllUserGames = async (req: Request, res: Response) => {
     const response: Array<UsersGame> = [];
     querySnapshot.forEach((document) => {response.push(parseUsersGame(document.data() as DbUsersGame));});
 
-    res.send(response.map((respI) => {
-        return {data: {
+    res.send({data: response.map((respI) => {
+        return {
             bestTime: respI.bestTime,
             currentGame: {
+                id: respI.nonogramId,
                 state: respI.state,
                 currentUserSolution: respI.currentUserSolution,
                 currentTime: respI.currentTime,
@@ -63,7 +65,7 @@ export const getAllUserGames = async (req: Request, res: Response) => {
                 currentUserColumns: respI.currentUserColumns
             }
         }
-    }}));
+    })});
   } catch (err) {
     if (err instanceof Error) res.status(404).send(err.message);
   }

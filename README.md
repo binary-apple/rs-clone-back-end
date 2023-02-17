@@ -354,6 +354,7 @@ Returns json data about user's saved game.
       {
         "data": {
           "currentGame": {
+            "id": "nsNWHaYMXSERIHX1juXN",
             "state": "started",
             "currentUserSolution": [
                 [null,null,null,null,null,null,null,null,null],
