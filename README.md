@@ -359,6 +359,7 @@ Returns json data about user's saved game.
     ```json
       {
         "data": {
+          "bestTime": null,
           "currentGame": {
             "id": "nsNWHaYMXSERIHX1juXN",
             "state": "started",
@@ -466,6 +467,8 @@ Returns json data about user's saved game.
     ```'state': 'started' | 'finished' | 'initial'```
 
     ```currentTime``` - time in ms
+    
+    ```bestTime``` - best time im ms if the game was ever solved; otherwise it's null
 
 </details>
 
