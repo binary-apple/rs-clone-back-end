@@ -2,10 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { config } from './config';
-// import { db } from './db';
+// import { db, auth } from './db';
 
 import { router as userRouter } from './users';
 import { router as nonogramRouter } from './nonograms';
+import { router as usersGamesRouter } from './user-games';
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 app.use('/', userRouter);
 app.use('/', nonogramRouter);
+app.use('/', usersGamesRouter);
 
 
 

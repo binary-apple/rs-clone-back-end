@@ -361,6 +361,7 @@ Returns json data about user's saved game.
         "data": {
           "bestTime": null,
           "currentGame": {
+            "id": "nsNWHaYMXSERIHX1juXN",
             "state": "started",
             "currentUserSolution": [
                 [null,null,null,null,null,null,null,null,null],

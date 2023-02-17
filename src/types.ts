@@ -1,11 +1,3 @@
-export interface User {
-  email: string,
-  phoneNumber: string,
-  password: string,
-  firstName: string,
-  lastName: string
-}
-
 export interface NonogramHint {
   hint: number,
   color: number
@@ -57,5 +49,50 @@ export const parseNonogram: (dbNonogram: DbNonogram) => Nonogram =
     rows: JSON.parse(dbNonogram.rows),
     columns: JSON.parse(dbNonogram.columns),
     difficulty: dbNonogram.difficulty
+  };
+};
+
+export interface UsersGame {
+  userId: string,
+  nonogramId: string,
+  bestTime: number | null,
+  state: 'started' | 'finished' | 'initial',
+  currentUserSolution: Array<Array<number | null>>,
+  currentTime: number,
+  currentUserRows: Array<Array<{isCrossedOut: boolean}>>,
+  currentUserColumns: Array<Array<{isCrossedOut: boolean}>>,
+}
+
+export interface DbUsersGame extends Omit<UsersGame, 'currentUserSolution' | 'currentUserRows' | 'currentUserColumns'> {
+  currentUserSolution: string,
+  currentUserRows: string,
+  currentUserColumns: string
+}
+
+export const stringifyUsersGame: (usersGame: UsersGame) => DbUsersGame = 
+(usersGame: UsersGame) => {
+  return {
+    userId: usersGame.userId,
+    nonogramId: usersGame.nonogramId,
+    bestTime: usersGame.bestTime,
+    state: usersGame.state,
+    currentUserSolution: JSON.stringify(usersGame.currentUserSolution),
+    currentTime: usersGame.currentTime,
+    currentUserRows: JSON.stringify(usersGame.currentUserRows),
+    currentUserColumns: JSON.stringify(usersGame.currentUserColumns),
+  };
+};
+
+export const parseUsersGame: (DbUsersGame: DbUsersGame) => UsersGame = 
+(dbUsersGame: DbUsersGame) => {
+  return {
+    userId: dbUsersGame.userId,
+    nonogramId: dbUsersGame.nonogramId,
+    bestTime: dbUsersGame.bestTime,
+    state: dbUsersGame.state,
+    currentUserSolution: JSON.parse(dbUsersGame.currentUserSolution),
+    currentTime: dbUsersGame.currentTime,
+    currentUserRows: JSON.parse(dbUsersGame.currentUserRows),
+    currentUserColumns: JSON.parse(dbUsersGame.currentUserColumns),
   };
 };
