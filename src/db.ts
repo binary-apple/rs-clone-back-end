@@ -6,17 +6,16 @@ import { AuthErrorCodes, getAuth } from "firebase/auth";
 
 import admin from "firebase-admin";
 
-import serviceAccount from "../rs-nonograms-firebase-adminsdk-v5wve-0131b8086b.json";
+// import serviceAccount from "../service-account.json";
 
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount)
+// });
 
 
 
 // admin.auth().createUser({
-//     email: 'example@test.com',
+//     email: '1example@test.com',
 //     password: 'i love nonograms'
 // })
 
