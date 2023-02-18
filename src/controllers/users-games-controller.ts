@@ -5,7 +5,7 @@ import { collection, getDoc, doc, addDoc, query, getDocs, where } from 'firebase
 
 import { db } from '../db';
 import admin from 'firebase-admin';
-import { UsersGame, DbUsersGame, parseUsersGame, stringifyUsersGame } from '../types';
+import { UsersGame, DbUsersGame, parseUsersGame, stringifyUsersGame, ClientUsersGame } from '../types';
 
 export const getUserGame = async (req: Request, res: Response) => {
   try {
@@ -74,33 +74,19 @@ export const getAllUserGames = async (req: Request, res: Response) => {
 export const addUserGame = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
-    const usersGame = req.body;
+    const usersGame = req.body as ClientUsersGame;
         
     const usersGamesCol = collection(db, 'users-games');
     await addDoc(usersGamesCol, stringifyUsersGame({
         // TODO: get uid from token
         userId: '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2',
-        nonogramId: id,
-        bestTime: 15000,
-        state: 'finished',
-        currentUserSolution: [
-            [null,null,null,null,null],
-            [null,null,null,null,null],
-            [null,null,null,null,null]
-        ],
-        currentTime: 0,
-        currentUserRows: [
-            [{isCrossedOut:false},{isCrossedOut:false}],
-            [{isCrossedOut:false},{isCrossedOut:false}],
-            [{isCrossedOut:false}]
-        ],
-        currentUserColumns: [
-            [{isCrossedOut:false}],
-            [{isCrossedOut:false}],
-            [{isCrossedOut:false}],
-            [{isCrossedOut:false}],
-            [{isCrossedOut:false}]
-        ],
+        nonogramId: usersGame.currentGame.id,
+        bestTime: usersGame.bestTime,
+        state: usersGame.currentGame.state,
+        currentUserSolution: usersGame.currentGame.currentUserSolution,
+        currentTime: usersGame.currentGame.currentTime,
+        currentUserRows: usersGame.currentGame.currentUserRows,
+        currentUserColumns: usersGame.currentGame.currentUserColumns,
     }));
 
     res.send('Nonogram saved successfully');

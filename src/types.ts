@@ -96,3 +96,15 @@ export const parseUsersGame: (DbUsersGame: DbUsersGame) => UsersGame =
     currentUserColumns: JSON.parse(dbUsersGame.currentUserColumns),
   };
 };
+
+export interface ClientUsersGame {
+  bestTime: null,
+  currentGame: {
+    id: string,
+    state: 'started' | 'finished' | 'initial',
+    currentUserSolution: Array<Array<number | null>>,
+    currentTime: number,
+    currentUserRows: Array<Array<{isCrossedOut: boolean}>>,
+    currentUserColumns: Array<Array<{isCrossedOut: boolean}>>
+  }
+}
