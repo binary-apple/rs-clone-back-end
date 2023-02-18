@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { collection, getDoc, doc, addDoc, query, getDocs, where } from 'firebase/firestore';
+import { collection, getDoc, doc, setDoc, addDoc, query, getDocs, where } from 'firebase/firestore';
 
 
 
@@ -75,9 +75,19 @@ export const addUserGame = async (req: Request, res: Response) => {
   try {
     const id = req.params.id;
     const usersGame = req.body as ClientUsersGame;
-        
+
+    const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+
     const usersGamesCol = collection(db, 'users-games');
-    await addDoc(usersGamesCol, stringifyUsersGame({
+    const q = query(usersGamesCol, 
+        where('userId', '==', `${uid}`), 
+        where('nonogramId', '==', `${id}`));
+    const querySnapshot = await getDocs(q);
+    const savedGame: Array<{usersGame: UsersGame, id: string}> = [];
+    querySnapshot.forEach((document) => {savedGame.push({usersGame: parseUsersGame(document.data() as DbUsersGame), id: document.id});});
+
+    if (savedGame.length === 0) {
+      await addDoc(usersGamesCol, stringifyUsersGame({
         // TODO: get uid from token
         userId: '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2',
         nonogramId: usersGame.currentGame.id,
@@ -87,9 +97,23 @@ export const addUserGame = async (req: Request, res: Response) => {
         currentTime: usersGame.currentGame.currentTime,
         currentUserRows: usersGame.currentGame.currentUserRows,
         currentUserColumns: usersGame.currentGame.currentUserColumns,
-    }));
+      }));
 
-    res.send('Nonogram saved successfully');
+      res.send('Nonogram saved successfully');
+      return;
+    } else {
+      await setDoc(doc(db, 'users-games', savedGame[0].id), stringifyUsersGame({
+        // TODO: get uid from token
+        userId: '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2',
+        nonogramId: usersGame.currentGame.id,
+        bestTime: usersGame.bestTime,
+        state: usersGame.currentGame.state,
+        currentUserSolution: usersGame.currentGame.currentUserSolution,
+        currentTime: usersGame.currentGame.currentTime,
+        currentUserRows: usersGame.currentGame.currentUserRows,
+        currentUserColumns: usersGame.currentGame.currentUserColumns,
+      }));
+    }    
   } catch (err) {
     if (err instanceof Error) {
       console.log(err.message);
