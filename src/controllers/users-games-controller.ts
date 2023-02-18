@@ -27,7 +27,7 @@ export const getUserGame = async (req: Request, res: Response) => {
     const response: Array<UsersGame> = [];
     querySnapshot.forEach((document) => {response.push(parseUsersGame(document.data() as DbUsersGame));});
 
-    if (response.length === 0) res.send({});
+    if (response.length === 0) res.status(404).send('User has no such saved game');
     else res.send({data: {
         bestTime: response[0].bestTime,
         currentGame: {
