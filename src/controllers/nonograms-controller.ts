@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import { collection, getDoc, doc, addDoc, query, getDocs } from 'firebase/firestore';
+import { collection, getDoc, doc, addDoc, query, getDocs, where } from 'firebase/firestore';
 
 import { db } from '../db';
 import { Nonogram, DbNonogram, parseNonogram, stringifyNonogram } from '../types';
+import admin from 'firebase-admin';
 
 export const getNonogram = async (req: Request, res: Response) => {
   try {
@@ -22,11 +23,31 @@ export const getNonogram = async (req: Request, res: Response) => {
 
 export const getRandomNonogram = async (req: Request, res: Response) => {
   try {
+    const token: string = req.cookies.jwt;
+    const startedOrFinishedGamesId: Array<string> = [];
+    if (token) {
+      const { uid } = (await admin.auth().verifyIdToken(token));
+      const usersGamesCol = collection(db, 'users-games');
+      const qStarted = query(usersGamesCol, 
+          where('userId', '==', `${uid}`), 
+          where('state', '==', 'started'),
+          where('bestTime', '==', null));
+      const qFinished = query(usersGamesCol, 
+        where('userId', '==', `${uid}`),
+        where('bestTime', '!=', null));
+      (await getDocs(qStarted)).forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
+      (await getDocs(qFinished)).forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
+    }
+
     const q = query(collection(db, 'nonograms'));
     const querySnapshot = await getDocs(q);
         
     const response: Array<{ id: string, nonogram: Nonogram }> = [];
-    querySnapshot.forEach((document) => {response.push({ id: document.id, nonogram: parseNonogram(document.data() as DbNonogram) });});
+
+    querySnapshot.forEach((document) => {
+      if (!startedOrFinishedGamesId.includes(document.id))
+      response.push({ id: document.id, nonogram: parseNonogram(document.data() as DbNonogram) });
+    });
 
     const docId = Math.floor(Math.random() * response.length);
 
