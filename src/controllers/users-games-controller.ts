@@ -6,6 +6,7 @@ import { collection, getDoc, doc, setDoc, addDoc, query, getDocs, where } from '
 import { db } from '../db';
 import admin from 'firebase-admin';
 import { UsersGame, DbUsersGame, parseUsersGame, stringifyUsersGame, ClientUsersGame } from '../types';
+import cookieParser from 'cookie-parser';
 
 export const getUserGame = async (req: Request, res: Response) => {
   try {
@@ -46,7 +47,20 @@ export const getUserGame = async (req: Request, res: Response) => {
 
 export const getAllUserGames = async (req: Request, res: Response) => {
   try {
-    const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+    // console.log(/* token */ req.cookies);
+    res.setHeader('Access-Control-Allow-Origin', req.headers.origin!);
+    // res.send(true);
+    // return;
+    const token: string = req.cookies.jwt;
+
+    if (! token) {
+        throw new Error('User token was not sent');
+    }
+
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    const uid = decodedToken.uid;
+    
+    // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
     const q = query(collection(db, 'users-games'), where('userId', '==', `${uid}`));
     const querySnapshot = await getDocs(q);
         
