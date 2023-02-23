@@ -16,7 +16,6 @@ app.use(cors({origin:true,credentials: true}));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use('/', userRouter);
 app.use('/', nonogramRouter);
 app.use('/', usersGamesRouter);
 
