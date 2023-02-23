@@ -1,4 +1,7 @@
 const pngToMatrix = require('png-to-matrix');
+const fs = require('fs');
+const path = require('path');
+
 
 function getHintsFromLine(line) {
     // line = [0,0,0,1,1,1,0,0,1,1]
@@ -45,16 +48,37 @@ function getGoal(matrix) {
     return goal;
 }
 
-pngToMatrix("./src/doggy.png", (matrix) => {
-    const height = matrix.length;
-    const width = matrix[0].length;
-    const colorMapping = {
-        "1": "#000000",
-    };
-    console.log(matrix.length, matrix[0].length);
-    const goal = getGoal(matrix);
-    const rows = goal.map((row) => getHintsFromLine(row));
-    const columns = transpose(goal).map((row) => getHintsFromLine(row));
-    // console.log(goal);
-});
+async function writeNonoToBd() {
+    const filesToCopy = fs.readdirSync(path.resolve(__dirname, 'src'), { withFileTypes: true });
+    for (const file of filesToCopy) {
+        if (file.isFile()) {
+            if (path.extname(file.name) !== '.png') continue;
+            pngToMatrix(path.resolve(__dirname, 'src', file.name), async (matrix) => {
+                const goal = getGoal(matrix);
+                const nonogram = {
+                    height: matrix.length,
+                    width: matrix[0].length,
+                    title: {
+                        en: file.name,
+                        ru: '',
+                        de: ''
+                    },
+                    colorMapping: {"1": "#000000"},
+                    goal: getGoal(matrix),
+                    rows: goal.map((row) => getHintsFromLine(row)),
+                    columns: transpose(goal).map((row) => getHintsFromLine(row)),
+                    difficulty: 0
+                };
+                const response = await fetch('http://localhost:3000/nonograms', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(nonogram),
+                });
+                console.log(`File ${file.name} is processed with status ${response.status}`);
+                // console.log(path.resolve(__dirname, 'src', file.name), nonogram);
+            })
+        }
+    }
+}
 
+writeNonoToBd();
