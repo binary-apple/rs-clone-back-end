@@ -63,7 +63,6 @@ export const getAllUserGames = async (req: Request, res: Response) => {
     const token: string = req.cookies.jwt;
     const uid = await getUidByToken(token);
     // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
-    res.send(uid); return;
 
     const q = query(collection(db, 'users-games'), where('userId', '==', `${uid}`));
     const querySnapshot = await getDocs(q);
