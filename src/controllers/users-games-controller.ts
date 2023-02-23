@@ -12,15 +12,11 @@ async function getUidByToken(token: string): Promise<string> {
 
 export const getUserGame = async (req: Request, res: Response) => {
   try {
-    if (req.headers.origin) {
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
     }
-
-    if (!('jwt' in req.cookies)) {
-      throw new Error('User token was not sent');
-    }
-
-    const token: string = req.cookies.jwt;
+    
+    const token = req.headers.token as string;
     const uid = await getUidByToken(token);
     // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
 
@@ -52,15 +48,11 @@ export const getUserGame = async (req: Request, res: Response) => {
 
 export const getAllUserGames = async (req: Request, res: Response) => {
   try {
-    if (req.headers.origin) {
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
     }
     
-    if (!('jwt' in req.cookies)) {
-      throw new Error('User token was not sent');
-    }
-    
-    const token: string = req.cookies.jwt;
+    const token = req.headers.token as string;
     const uid = await getUidByToken(token);
     // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
 
@@ -90,15 +82,11 @@ export const getAllUserGames = async (req: Request, res: Response) => {
 
 export const addUserGame = async (req: Request, res: Response) => {
   try {
-    if (req.headers.origin) {
-      res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
     }
-
-    if (!('jwt' in req.cookies)) {
-      throw new Error('User token was not sent');
-    }
-
-    const token: string = req.cookies.jwt;
+    
+    const token = req.headers.token as string;
     const uid = await getUidByToken(token);
     // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
 
