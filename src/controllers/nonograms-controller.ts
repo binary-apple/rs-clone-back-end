@@ -93,8 +93,10 @@ export const getAllNonograms = async (req: Request, res: Response) => {
       });
     });
 
-    res.setHeader("lastId", response[response.length - 1].id).send(response);
-    res.setHeader("Access-Control-Expose-Headers", "lastId").send(response);
+    res
+      .setHeader("lastId", response[response.length - 1].id)
+      .setHeader("Access-Control-Expose-Headers", "lastId")
+      .send(response);
 
     return;
   } catch (err) {
