@@ -50,19 +50,21 @@ export const getRandomNonogram = async (req: Request, res: Response) => {
     if (('token' in req.headers) && req.headers.token) {
       const token = req.headers.token as string;
 
-
       const { uid } = (await admin.auth().verifyIdToken(token));
       const usersGamesCol = collection(db, 'users-games');
       const qStarted = query(usersGamesCol, 
           where('userId', '==', `${uid}`), 
+          where('bestTime', '==', null),
           where('state', '==', 'started'),
-          where('bestTime', '==', null));
+        );
+      (await getDocs(qStarted)).forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
       const qFinished = query(usersGamesCol, 
         where('userId', '==', `${uid}`),
-        where('bestTime', '!=', null));
-      (await getDocs(qStarted)).forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
+        where('bestTime', '!=', null)
+        );
       (await getDocs(qFinished)).forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
     }
+    console.log(startedOrFinishedGamesId.length);
 
     const q = query(collection(db, 'nonograms'));
     const querySnapshot = await getDocs(q);
