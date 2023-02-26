@@ -1,4 +1,5 @@
 # rs-clone-back-end
+
 Api for RS-Nonograms
 
 ## Setup and Running
@@ -9,466 +10,462 @@ Api for RS-Nonograms
 ## Usage
 
 - **Nonogram**
-    - [Get Nonograms](#get-nonograms)
-    - [Get Nonogram](#get-nonogram)
+  - [Get Nonograms](#get-nonograms)
+  - [Get Nonogram](#get-nonogram)
 - **Users**
-    - [Get User's game](#get-users-game)
+  - [Get User's game](#get-users-game)
 
-**Get Nonograms**
-----
+## **Get Nonograms**
+
 Returns json data about all nonograms.
 
 <details>
 
-* **URL**
+- **URL**
 
-    /nonograms
+  /nonograms
 
-* **Method:**
+- **Method:**
 
-    `GET`
+  `GET`
 
-* **Headers:**
+- **Headers:**
 
-    None
+  None
 
-*  **URL Params**
+- **URL Params**
 
-    None
+  None
 
-* **Query Params**
+- **Query Params**
 
-    None
+  **Optional:**
 
-* **Data Params**
+  `limit=[integer]`
 
-    None
+  `lastId=[string]`
 
-* **Success Response:**
+  If `limit` param is passed api returns a header `lastId` that countains the id of the last nonogram in a previous bunch and should be sent as a query param for next bunch of nonograms. For the first bunch lastId must not be sent.
 
-  * **Code:** 200 OK <br />
-    **Content:** 
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
     ```json
-      [
-        {
-          "id": "123456789abc",
-          "nonogram": {
-            "height": 11,
-            "width": 9,
-            "title": {
-                "en": "Martini",
-                "ru": "Мартини",
-                "de": "Martini"
-            },
-            "colorMapping": {
-                "1": "#000000",
-                "2": "#c91414"
-            },
-            "goal": [
-                [1,1,1,1,1,1,1,1,1],
-                [1,0,0,0,0,0,0,0,1],
-                [0,1,2,2,2,2,2,1,0],
-                [0,0,1,2,2,2,1,0,0],
-                [0,0,0,1,2,1,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,1,1,1,1,1,0,0]
+    [
+      {
+        "id": "123456789abc",
+        "nonogram": {
+          "height": 11,
+          "width": 9,
+          "title": {
+            "en": "Martini",
+            "ru": "Мартини",
+            "de": "Martini"
+          },
+          "colorMapping": {
+            "1": "#000000",
+            "2": "#c91414"
+          },
+          "goal": [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 1],
+            [0, 1, 2, 2, 2, 2, 2, 1, 0],
+            [0, 0, 1, 2, 2, 2, 1, 0, 0],
+            [0, 0, 0, 1, 2, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 0, 0]
+          ],
+          "rows": [
+            [{ "hint": 9, "color": 1 }],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
             ],
-            "rows": [
-                [ {   "hint": 9, "color": 1  } ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 5, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 3, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 5, "color": 1  } ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 5, "color": 2 },
+              { "hint": 1, "color": 1 }
             ],
-            "columns": [
-                [ {   "hint": 2, "color": 1  } ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 2, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 6, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 2, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [ {   "hint": 2, "color": 1  } ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 3, "color": 2 },
+              { "hint": 1, "color": 1 }
             ],
-            "difficulty" : 1
-          }
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 2 },
+              { "hint": 1, "color": 1 }
+            ],
+            [{ "hint": 1, "color": 1 }],
+            [{ "hint": 1, "color": 1 }],
+            [{ "hint": 1, "color": 1 }],
+            [{ "hint": 1, "color": 1 }],
+            [{ "hint": 1, "color": 1 }],
+            [{ "hint": 5, "color": 1 }]
+          ],
+          "columns": [
+            [{ "hint": 2, "color": 1 }],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 2 },
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 2, "color": 2 },
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 2 },
+              { "hint": 6, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 2, "color": 2 },
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 2 },
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [
+              { "hint": 1, "color": 1 },
+              { "hint": 1, "color": 1 }
+            ],
+            [{ "hint": 2, "color": 1 }]
+          ],
+          "difficulty": 1
         }
-      ]
+      }
+    ]
     ```
- 
-* **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
-    **Content:** 
-    ```{}```
+- **Error Response:**
 
-* **Notes:**
+  - **Code:** 404 NOT FOUND <br />
+    **Content:**
+    `{}`
 
-    None
+- **Notes:**
+
+  None
 
 </details>
 
-**Get Nonogram**
-----
+## **Get Nonogram**
+
 Returns json data about nonogram.
 
 <details>
 
-* **URL**
+- **URL**
 
-    /nonograms/:id
-    
-    /nonograms/random
-    
-    Using random will return a random game
+  /nonograms/:id
 
-* **Method:**
+  /nonograms/random
 
-    `GET`
+  Using random will return a random game
 
-* **Headers:**
+- **Method:**
 
-    None
+  `GET`
 
-*  **URL Params**
+- **Headers:**
 
-    **Required:**
- 
-    `id=[string]`
+  None
 
-* **Query Params**
+- **URL Params**
 
-    None
+  **Required:**
 
-* **Data Params**
+  `id=[string]`
 
-    None
+- **Query Params**
 
-* **Success Response:**
+  None
 
-  * **Code:** 200 OK <br />
-    **Content:** 
+- **Data Params**
+
+  None
+
+- **Success Response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
     ```json
-      {
-          "id": "123456789abc",
-          "nonogram": {
-            "height": 11,
-            "width": 9,
-            "title": {
-                "en": "Martini",
-                "ru": "Мартини",
-                "de": "Martini"
-            },
-            "colorMapping": {
-                "1": "#000000",
-                "2": "#c91414"
-            },
-            "goal": [
-                [1,1,1,1,1,1,1,1,1],
-                [1,0,0,0,0,0,0,0,1],
-                [0,1,2,2,2,2,2,1,0],
-                [0,0,1,2,2,2,1,0,0],
-                [0,0,0,1,2,1,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,0,0,1,0,0,0,0],
-                [0,0,1,1,1,1,1,0,0]
-            ],
-            "rows": [
-                [ {   "hint": 9, "color": 1  } ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 5, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 3, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 1, "color": 1  } ],
-                [ {   "hint": 5, "color": 1  } ],
-            ],
-            "columns": [
-                [ {   "hint": 2, "color": 1  } ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 2, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 6, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 2, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 2  },
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [
-                    {   "hint": 1, "color": 1  },
-                    {   "hint": 1, "color": 1  },
-                ],
-                [ {   "hint": 2, "color": 1  } ],
-            ],
-            "difficulty" : 1
-          }
-        }
+    {
+      "id": "123456789abc",
+      "nonogram": {
+        "height": 11,
+        "width": 9,
+        "title": {
+          "en": "Martini",
+          "ru": "Мартини",
+          "de": "Martini"
+        },
+        "colorMapping": {
+          "1": "#000000",
+          "2": "#c91414"
+        },
+        "goal": [
+          [1, 1, 1, 1, 1, 1, 1, 1, 1],
+          [1, 0, 0, 0, 0, 0, 0, 0, 1],
+          [0, 1, 2, 2, 2, 2, 2, 1, 0],
+          [0, 0, 1, 2, 2, 2, 1, 0, 0],
+          [0, 0, 0, 1, 2, 1, 0, 0, 0],
+          [0, 0, 0, 0, 1, 0, 0, 0, 0],
+          [0, 0, 0, 0, 1, 0, 0, 0, 0],
+          [0, 0, 0, 0, 1, 0, 0, 0, 0],
+          [0, 0, 0, 0, 1, 0, 0, 0, 0],
+          [0, 0, 0, 0, 1, 0, 0, 0, 0],
+          [0, 0, 1, 1, 1, 1, 1, 0, 0]
+        ],
+        "rows": [
+          [{ "hint": 9, "color": 1 }],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 5, "color": 2 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 3, "color": 2 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 2 },
+            { "hint": 1, "color": 1 }
+          ],
+          [{ "hint": 1, "color": 1 }],
+          [{ "hint": 1, "color": 1 }],
+          [{ "hint": 1, "color": 1 }],
+          [{ "hint": 1, "color": 1 }],
+          [{ "hint": 1, "color": 1 }],
+          [{ "hint": 5, "color": 1 }]
+        ],
+        "columns": [
+          [{ "hint": 2, "color": 1 }],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 2 },
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 2, "color": 2 },
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 2 },
+            { "hint": 6, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 2, "color": 2 },
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 2 },
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [
+            { "hint": 1, "color": 1 },
+            { "hint": 1, "color": 1 }
+          ],
+          [{ "hint": 2, "color": 1 }]
+        ],
+        "difficulty": 1
+      }
+    }
     ```
- 
-* **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
-    **Content:** 
-    ```{}```
+- **Error Response:**
 
-* **Notes:**
+  - **Code:** 404 NOT FOUND <br />
+    **Content:**
+    `{}`
 
-    None
+- **Notes:**
+
+  None
 
 </details>
 
-**Get User's game**
-----
+## **Get User's game**
+
 Returns json data about user's saved game.
 
 <details>
 
-* **URL**
+- **URL**
 
-    /users-games
+  /users-games
 
-* **Method:**
+- **Method:**
 
-    `GET`
+  `GET`
 
-* **Headers:**
+- **Headers:**
 
-    `'token': 'string'`
+  `'token': 'string'`
 
-*  **URL Params**
- 
-    None
+- **URL Params**
 
-* **Query Params**
+  None
 
-    None
+- **Query Params**
 
-* **Data Params**
+  None
 
-    ```
-        {
-            id: string
-        }
-    ```
+- **Data Params**
 
-* **Success Response:**
-
-  * **Code:** 200 OK <br />
-    **Content:** 
-    ```json
+  ```
       {
-        "data": {
-          "bestTime": null,
-          "currentGame": {
-            "id": "nsNWHaYMXSERIHX1juXN",
-            "state": "started",
-            "currentUserSolution": [
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [0,1,2,2,2,2,2,1,0],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null],
-                [null,null,null,null,null,null,null,null,null]
+          id: string
+      }
+  ```
+
+- **Success Response:**
+
+  - **Code:** 200 OK <br />
+    **Content:**
+
+    ```json
+    {
+      "data": {
+        "bestTime": null,
+        "currentGame": {
+          "id": "nsNWHaYMXSERIHX1juXN",
+          "state": "started",
+          "currentUserSolution": [
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [0, 1, 2, 2, 2, 2, 2, 1, 0],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null]
+          ],
+          "currentTime": 200,
+          "currentUserRows": [
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }, { "isCrossedOut": false }],
+            [
+              { "isCrossedOut": true },
+              { "isCrossedOut": true },
+              { "isCrossedOut": true }
             ],
-            "currentTime": 200,
-            "currentUserRows": [
-                [ {   "isCrossedOut": false  } ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": true  },
-                    {   "isCrossedOut": true  },
-                    {   "isCrossedOut": true  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [ {   "isCrossedOut": false  } ],
-                [ {   "isCrossedOut": false  } ],
-                [ {   "isCrossedOut": false  } ],
-                [ {   "isCrossedOut": false  } ],
-                [ {   "isCrossedOut": false  } ],
-                [ {   "isCrossedOut": false  } ],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
             ],
-            "currentUserColumns": [
-                [ {   "isCrossedOut": false  } ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [
-                    {   "isCrossedOut": false  },
-                    {   "isCrossedOut": false  },
-                ],
-                [ {   "isCrossedOut": false  } ],
-            ]
-          }
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }]
+          ],
+          "currentUserColumns": [
+            [{ "isCrossedOut": false }],
+            [{ "isCrossedOut": false }, { "isCrossedOut": false }],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false },
+              { "isCrossedOut": false }
+            ],
+            [{ "isCrossedOut": false }, { "isCrossedOut": false }],
+            [{ "isCrossedOut": false }]
+          ]
         }
       }
+    }
     ```
-        
+
     **Headers:**
 
-      None
+    None
 
- 
-* **Error Response:**
+- **Error Response:**
 
-    * **Code:** 404 NOT FOUND <br />
-    **Content:** 
-    ```{}```
+  - **Code:** 404 NOT FOUND <br />
+    **Content:**
+    `{}`
 
-* **Notes:**
+- **Notes:**
 
-    ```'state': 'started' | 'finished' | 'initial'```
+  `'state': 'started' | 'finished' | 'initial'`
 
-    ```currentTime``` - time in ms
-    
-    ```bestTime``` - best time im ms if the game was ever solved; otherwise it's null
+  `currentTime` - time in ms
+
+  `bestTime` - best time im ms if the game was ever solved; otherwise it's null
 
 </details>
-

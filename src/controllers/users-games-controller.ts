@@ -1,24 +1,26 @@
 import { Request, Response } from 'express';
 import { collection, getDoc, doc, setDoc, addDoc, query, getDocs, where } from 'firebase/firestore';
 
-
-
 import { db } from '../db';
 import admin from 'firebase-admin';
 import { UsersGame, DbUsersGame, parseUsersGame, stringifyUsersGame, ClientUsersGame } from '../types';
 
+async function getUidByToken(token: string): Promise<string> {
+    const decodedToken = await admin.auth().verifyIdToken(token);
+    return decodedToken.uid;
+}
+
 export const getUserGame = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
-    // const authHeader = req.header('Authorization');
-    // const idToken = authHeader && authHeader.split(' ')[1];
-    // if (! idToken) {
-    //     throw new Error('User token was not sent');
-    // }
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
+    }
+    
+    const token = req.headers.token as string;
+    const uid = await getUidByToken(token);
+    // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
 
-    // const decodedToken = await admin.auth().verifyIdToken(idToken);
-    // const uid = decodedToken.uid;
-    const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+    const id = req.params.id;
 
     const q = query(collection(db, 'users-games'), 
         where('userId', '==', `${uid}`), 
@@ -46,7 +48,14 @@ export const getUserGame = async (req: Request, res: Response) => {
 
 export const getAllUserGames = async (req: Request, res: Response) => {
   try {
-    const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
+    }
+    
+    const token = req.headers.token as string;
+    const uid = await getUidByToken(token);
+    // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+
     const q = query(collection(db, 'users-games'), where('userId', '==', `${uid}`));
     const querySnapshot = await getDocs(q);
         
@@ -73,10 +82,17 @@ export const getAllUserGames = async (req: Request, res: Response) => {
 
 export const addUserGame = async (req: Request, res: Response) => {
   try {
-    const id = req.params.id;
-    const usersGame = req.body as ClientUsersGame;
+    if (!('token' in req.headers) || !req.headers.token) {
+      throw new Error('Token was not sent');
+    }
+    
+    const token = req.headers.token as string;
+    const uid = await getUidByToken(token);
+    // const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
 
-    const uid = '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2';
+    const id = req.params.id;
+
+    const usersGame = req.body as ClientUsersGame;
 
     const usersGamesCol = collection(db, 'users-games');
     const q = query(usersGamesCol, 
@@ -88,8 +104,7 @@ export const addUserGame = async (req: Request, res: Response) => {
 
     if (savedGame.length === 0) {
       await addDoc(usersGamesCol, stringifyUsersGame({
-        // TODO: get uid from token
-        userId: '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2',
+        userId: uid,
         nonogramId: usersGame.currentGame.id,
         bestTime: usersGame.bestTime,
         state: usersGame.currentGame.state,
@@ -103,8 +118,7 @@ export const addUserGame = async (req: Request, res: Response) => {
       return;
     } else {
       await setDoc(doc(db, 'users-games', savedGame[0].id), stringifyUsersGame({
-        // TODO: get uid from token
-        userId: '7ZC8MeA7LsbtfA8ogBsyqyJiRSp2',
+        userId: uid,
         nonogramId: usersGame.currentGame.id,
         bestTime: usersGame.bestTime,
         state: usersGame.currentGame.state,
