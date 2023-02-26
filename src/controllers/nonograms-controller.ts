@@ -23,9 +23,12 @@ export const getNonogram = async (req: Request, res: Response) => {
 
 export const getRandomNonogram = async (req: Request, res: Response) => {
   try {
-    const token: string = req.cookies.jwt;
     const startedOrFinishedGamesId: Array<string> = [];
-    if (token) {
+
+    if (('token' in req.headers) && req.headers.token) {
+      const token = req.headers.token as string;
+
+
       const { uid } = (await admin.auth().verifyIdToken(token));
       const usersGamesCol = collection(db, 'users-games');
       const qStarted = query(usersGamesCol, 
