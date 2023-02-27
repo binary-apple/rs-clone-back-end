@@ -69,14 +69,14 @@ export const getRandomNonogram = async (req: Request, res: Response) => {
         snapFinish.forEach((document) => {startedOrFinishedGamesId.push(document.data().nonogramId)});
     }
 
-    const q = query(collection(db, 'nonograms'),
-      where('__name__', 'not-in', startedOrFinishedGamesId));
+    const q = query(collection(db, 'nonograms'));
     const querySnapshot = await getDocs(q);
         
     const response: Array<{ id: string, nonogram: Nonogram }> = [];
 
     querySnapshot.forEach((document) => {
-      response.push({ id: document.id, nonogram: parseNonogram(document.data() as DbNonogram) });
+      if (!startedOrFinishedGamesId.includes(document.id))
+        response.push({ id: document.id, nonogram: parseNonogram(document.data() as DbNonogram) });
     });
 
     const docId = Math.floor(Math.random() * response.length);
