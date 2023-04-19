@@ -4,7 +4,37 @@ import { getFirestore } from 'firebase/firestore';
 import { getAuth } from "firebase/auth";
 
 import admin from 'firebase-admin';
-import serviceAccount from "../environment-variables.json";
+// import serviceAccount from "../environment-variables.json";
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+const {
+  type,
+  projectId,
+  privateKeyId,
+  privateKey,
+  clientEmail,
+  clientId,
+  authUri,
+  tokenUri,
+  auth_provider_x509_cert_url,
+  client_x509_cert_url
+} = process.env;
+
+const serviceAccount = {
+  type,
+  projectId,
+  privateKeyId,
+  privateKey,
+  clientEmail,
+  clientId,
+  authUri,
+  tokenUri,
+  auth_provider_x509_cert_url,
+  client_x509_cert_url
+}
+
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
