@@ -21,6 +21,7 @@ const {
   auth_provider_x509_cert_url,
   client_x509_cert_url
 } = process.env;
+console.log('Aaaaa!');
 
 const serviceAccount = {
   type,
