@@ -19,4 +19,5 @@ app.use('/', usersGamesRouter);
 
 
 
-app.listen(config.port, () => console.log('App is listening on url http://localhost:' + config.port));
+// app.listen(config.port, () => console.log('App is listening on url http://localhost:' + config.port));
+app.listen(+config.port, '0.0.0.0', () => console.log(`Server started on port ${config.port}`));
